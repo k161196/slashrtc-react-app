@@ -34,7 +34,7 @@ function Page() {
 
   const Card = ({ item }) => {
     return (
-      <div className="max-w-xs   w-28 h-32 bg-white m-2 rounded-md shadow-lg flex flex-col justify-center items-center">
+      <div className="max-w-xs   w-28 h-32 bg-white m-2 rounded-md shadow-lg flex flex-col justify-center items-center hover:scale-110 transform duration-300">
         <img src={`${item.icon}`} alt="" className="w-12 h-12 mb-2" />
         <div className="text-xs text-gray-700">{item.titlle}</div>
       </div>

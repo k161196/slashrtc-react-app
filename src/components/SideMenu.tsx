@@ -72,7 +72,13 @@ function SideMenu() {
           />
         </NavItem>
       </div>
-      <div>
+      <div className="relative ">
+        <span className="absolute right-0 mr-1 mt-1 flex h-5 w-5">
+          <span className="animate-ping absolute inline-flex w-5 h-5 rounded-full bg-pink-400 opacity-75"></span>
+          <span className="relative inline-flex rounded-full h-4 w-4 bg-pink-500 text-xs text-white  justify-center items-center ">
+            1
+          </span>
+        </span>
         <NavItem to="/documents">
           <RiTShirtAirFill
             color="white "

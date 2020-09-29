@@ -4,10 +4,11 @@ import { Scrollbars } from "react-custom-scrollbars";
 import User from "./Posts";
 import PageNav from "./PageNav";
 import Axios from "axios";
+import { BiLoaderAlt } from "react-icons/bi";
 
 const TableView = () => {
   const [posts, setPosts] = useState([]);
-  const [isLoading, setisLoading] = useState(false);
+  const [isLoading, setisLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage, setPostsPerPage] = useState(10);
 
@@ -53,7 +54,12 @@ const TableView = () => {
             </thead>
             <tbody className="bg-white divide-y divide-gray-200 ">
               {isLoading ? (
-                <div>loading</div>
+                <div className=" w-full absolute bottom-0 top-0 left-0 right-0 mt-10 flex justify-center items-center bg-gray-900 bg-opacity-50">
+                  <BiLoaderAlt
+                    color="#6b46c1"
+                    className="w-10 h-10 animate-spin"
+                  />
+                </div>
               ) : (
                 currentPost.map((post) => <User post={post} />)
               )}
