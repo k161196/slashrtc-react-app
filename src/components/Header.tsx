@@ -5,7 +5,7 @@ import CardProfile from "./CardProfile";
 function Header() {
   const [menu, setMenu] = useState(false);
   return (
-    <div className=" relative bg-white p-2 flex justify-between items-center pr-5">
+    <div className=" relative bg-white p-3 flex justify-between items-center pr-5">
       <div className="text-gray-500 pl-2">Search</div>
       <div className="flex justify-between items-center mr-5">
         <div className="mr-2 text-gray-500 text-sm">Admin</div>

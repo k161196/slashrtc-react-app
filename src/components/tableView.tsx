@@ -1,99 +1,76 @@
-import React from 'react'
+import React, { useEffect, useState } from "react";
 
-import { Scrollbars } from "react-custom-scrollbars"
+import { Scrollbars } from "react-custom-scrollbars";
+import User from "./Posts";
+import PageNav from "./PageNav";
+import Axios from "axios";
 
 const TableView = () => {
-    const TableCol = () => {
-        return <tr className="">
-            <td className="px-6 py-4 whitespace-no-wrap ">
-                <div className="flex items-center">
-                    <div className="flex-shrink-0 h-10 w-10">
-                        <img className="h-10 w-10 rounded-full" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=4&amp;w=256&amp;h=256&amp;q=60" alt="" />
-                    </div>
-                    <div className="ml-4">
-                        <div className="text-sm leading-5 font-medium text-gray-900">
-                            Jane Cooper
-                    </div>
-                        <div className="text-sm leading-5 text-gray-500">
-                            jane.cooper@example.com
-                    </div>
-                    </div>
-                </div>
-            </td>
-            <td className="px-6 py-4 whitespace-no-wrap">
-                <div className="text-sm leading-5 text-gray-900">Regional Paradigm Technician</div>
-                <div className="text-sm leading-5 text-gray-500">Optimization</div>
-            </td>
-            <td className="px-6 py-4 whitespace-no-wrap">
-                <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                    Active
-            </span>
-            </td>
-            <td className="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-500">
-                Admin
-</td>
-            <td className="px-6 py-4 whitespace-no-wrap text-right text-sm leading-5 font-medium">
-                <a href="#" className="text-indigo-600 hover:text-indigo-900">Edit</a>
-            </td>
-        </tr>
-    }
+  const [posts, setPosts] = useState([]);
+  const [isLoading, setisLoading] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [postsPerPage, setPostsPerPage] = useState(10);
 
-    const PageNavItem = () => {
-        return <div className="m-1 bg-purple-700 text-white w-6 h-6 rounded-full flex justify-center items-center">
-            1
-        </div>
-    }
+  useEffect(() => {
+    const fetchPosts = async () => {
+      setisLoading(true);
+      const res = await Axios.get("https://jsonplaceholder.typicode.com/posts");
+      setPosts(res.data);
+      setisLoading(false);
+    };
+    fetchPosts();
+    return () => {};
+  }, []);
 
+  const indexOfLastPost = currentPage * postsPerPage;
+  const indexOfFirstPost = indexOfLastPost - postsPerPage;
+  const currentPost = posts.slice(indexOfFirstPost, indexOfLastPost);
+  const paginate = (number) => {
+    setCurrentPage(number);
+  };
+  return (
+    <div className="flex flex-col p-5 w-full h-full">
+      <div className="bg-white rounded-t-lg w-full h-full shadow  border-b border-gray-200">
+        {/* <div className="shadow  border-b border-gray-200 sm:rounded-lg"> */}
+        <Scrollbars>
+          <table className="min-w-full divide-y divide-gray-200">
+            <thead>
+              <tr>
+                <th className="px-4 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                  Name
+                </th>
+                <th className="px-1 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                  Title
+                </th>
+                <th className="px-1 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                  Status
+                </th>
+                <th className="px-1 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                  Role
+                </th>
+                <th className="px-1 py-3 bg-gray-50"></th>
+              </tr>
+            </thead>
+            <tbody className="bg-white divide-y divide-gray-200 ">
+              {isLoading ? (
+                <div>loading</div>
+              ) : (
+                currentPost.map((post) => <User post={post} />)
+              )}
 
-    const PageNav = () => {
-        return <div className="bg-white w-full rounded-b-lg p-2 flex justify-center items-center">
-            <div className="flex ">
-                <PageNavItem />
-                <div className="m-1 text-gray-500 w-6 h-6 rounded-full flex justify-center items-center">
-                    2
-                </div>
-            </div>
-        </div>
-    }
+              {/* <User /> */}
+            </tbody>
+          </table>
+        </Scrollbars>
+      </div>
+      <PageNav
+        postsPerPage={postsPerPage}
+        totalPosts={posts.length}
+        paginate={paginate}
+        currentPage={currentPage}
+      />
+    </div>
+  );
+};
 
-    return (
-        <div className="flex flex-col p-5 w-full h-full">
-
-            <div className="bg-white rounded-t-lg w-full h-full shadow  border-b border-gray-200">
-                {/* <div className="shadow  border-b border-gray-200 sm:rounded-lg"> */}
-                <Scrollbars >
-                    <table className="min-w-full divide-y divide-gray-200">
-                        <thead>
-                            <tr>
-                                <th className="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-                                    Name
-                    </th>
-                                <th className="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-                                    Title
-                    </th>
-                                <th className="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-                                    Status
-                    </th>
-                                <th className="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-                                    Role
-                    </th>
-                                <th className="px-6 py-3 bg-gray-50"></th>
-                            </tr>
-                        </thead>
-                        <tbody className="bg-white divide-y divide-gray-200">
-                            <TableCol />
-                            <TableCol />
-
-
-                        </tbody>
-                    </table>
-                </Scrollbars>
-
-            </div>
-            <PageNav />
-        </div >
-
-    )
-}
-
-export default TableView
+export default TableView;

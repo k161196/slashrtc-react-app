@@ -1,7 +1,13 @@
 import React from "react";
 import logo from "./logo.svg";
 import styled from "styled-components";
-import { Header, Page, SideMenu, TableView } from "./components";
+import {
+  Header,
+  Page,
+  SideMenu,
+  TableView,
+  PaginationView,
+} from "./components";
 
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
@@ -20,7 +26,8 @@ function App() {
             <Route path="/strategy" exact>
               <TableView />
             </Route>
-            <Route path="/chart" exact>
+            <Route path="/puzzle" exact>
+              {/* <PaginationView /> */}
               <TableView />
             </Route>
             <Route path="/data" exact>
