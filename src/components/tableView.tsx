@@ -1,5 +1,7 @@
 import React from 'react'
 
+import { Scrollbars } from "react-custom-scrollbars"
+
 const TableView = () => {
     const TableCol = () => {
         return <tr className="">
@@ -35,39 +37,60 @@ const TableView = () => {
             </td>
         </tr>
     }
+
+    const PageNavItem = () => {
+        return <div className="m-1 bg-purple-700 text-white w-6 h-6 rounded-full flex justify-center items-center">
+            1
+        </div>
+    }
+
+
+    const PageNav = () => {
+        return <div className="bg-white w-full rounded-b-lg p-2 flex justify-center items-center">
+            <div className="flex ">
+                <PageNavItem />
+                <div className="m-1 text-gray-500 w-6 h-6 rounded-full flex justify-center items-center">
+                    2
+                </div>
+            </div>
+        </div>
+    }
+
     return (
-        <div className="flex flex-col p-5 w-full ">
+        <div className="flex flex-col p-5 w-full h-full">
 
-            <div className=" overflow-x-auto w-full h-full shadow  border-b border-gray-200 sm:rounded-lg">
+            <div className="bg-white rounded-t-lg w-full h-full shadow  border-b border-gray-200">
                 {/* <div className="shadow  border-b border-gray-200 sm:rounded-lg"> */}
-                <table className="min-w-full divide-y divide-gray-200">
-                    <thead>
-                        <tr>
-                            <th className="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-                                Name
+                <Scrollbars >
+                    <table className="min-w-full divide-y divide-gray-200">
+                        <thead>
+                            <tr>
+                                <th className="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                                    Name
                     </th>
-                            <th className="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-                                Title
+                                <th className="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                                    Title
                     </th>
-                            <th className="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-                                Status
+                                <th className="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                                    Status
                     </th>
-                            <th className="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-                                Role
+                                <th className="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                                    Role
                     </th>
-                            <th className="px-6 py-3 bg-gray-50"></th>
-                        </tr>
-                    </thead>
-                    <tbody className="bg-white divide-y divide-gray-200">
-                        <TableCol />
-                        <TableCol />
+                                <th className="px-6 py-3 bg-gray-50"></th>
+                            </tr>
+                        </thead>
+                        <tbody className="bg-white divide-y divide-gray-200">
+                            <TableCol />
+                            <TableCol />
 
 
-                    </tbody>
-                </table>
-
+                        </tbody>
+                    </table>
+                </Scrollbars>
 
             </div>
+            <PageNav />
         </div >
 
     )
